@@ -16,7 +16,7 @@ A command-line tool written in Go that reads server configurations from a YAML f
 ## Installation
 1. Clone this repository:
    ```sh
-   git clone https://github.com/yourusername/ssh-command-executor.git
+   git clone https://github.com/Sadiq-Muhammad/GoDo.git
    cd ssh-command-executor
    ```
 2. Install dependencies:
