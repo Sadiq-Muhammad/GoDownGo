@@ -1,4 +1,4 @@
-# GoDownGo
+# GoDo
 
 A command-line tool written in Go that reads server configurations from a YAML file and executes specified SSH commands on them.
 
@@ -64,5 +64,4 @@ This project is licensed under the MIT License.
 Pull requests and improvements are welcome! Feel free to open an issue for any feature requests or bugs.
 
 ## Author
-[Sadiq Muhammad] - [Your Contact Info]
-
+Sadiq Muhammad
