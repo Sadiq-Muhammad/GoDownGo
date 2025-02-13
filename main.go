@@ -1,48 +1,64 @@
 package main
 
 import (
+	"flag"
 	"fmt"
+	"log"
+	"os"
 	"strings"
 	"time"
 
 	"golang.org/x/crypto/ssh"
+	"gopkg.in/yaml.v3"
 )
 
-// Server structure
 type Server struct {
-	host     string
-	username string
-	password string
-	command  string
+	Host     string `yaml:"host"`
+	Username string `yaml:"username"`
+	Password string `yaml:"password"`
+	Command  string `yaml:"command"`
 }
 
-// executeSSHCommand connects to the server and executes a command
+type Config struct {
+	Servers []Server `yaml:"servers"`
+}
+
+func loadServers(filename string) ([]Server, error) {
+	data, err := os.ReadFile(filename)
+	if err != nil {
+		return nil, err
+	}
+	var config Config
+	err = yaml.Unmarshal(data, &config)
+	if err != nil {
+		return nil, err
+	}
+	return config.Servers, nil
+}
+
 func executeSSHCommand(server Server) string {
 	config := &ssh.ClientConfig{
-		User: server.username,
+		User: server.Username,
 		Auth: []ssh.AuthMethod{
-			ssh.Password(server.password), // Password authentication
+			ssh.Password(server.Password),
 		},
-		HostKeyCallback: ssh.InsecureIgnoreHostKey(), // Skip host key verification (not recommended for production)
-		Timeout:         5 * time.Second,             // Connection timeout
+		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
+		Timeout:         5 * time.Second,
 	}
 
-	// Connect to SSH server
-	conn, err := ssh.Dial("tcp", server.host+":22", config)
+	conn, err := ssh.Dial("tcp", server.Host+":22", config)
 	if err != nil {
 		return fmt.Sprintf("Failed to connect: %v", err)
 	}
 	defer conn.Close()
 
-	// Create a session
 	session, err := conn.NewSession()
 	if err != nil {
 		return fmt.Sprintf("Failed to create session: %v", err)
 	}
 	defer session.Close()
 
-	// Run command
-	output, err := session.CombinedOutput(server.command)
+	output, err := session.CombinedOutput(server.Command)
 	if err != nil {
 		return fmt.Sprintf("Command execution error: %v", err)
 	}
@@ -51,17 +67,24 @@ func executeSSHCommand(server Server) string {
 }
 
 func main() {
-	WIN_COMMAND := "dir" // Windows equivalent of 'ls'
+	yamlFile := flag.String("file", "servers.yaml", "Path to the YAML file")
+	hostFilter := flag.String("host", "", "Execute command only on this host")
 
-	servers := []Server{
-		{host: "127.0.0.1", username: "Sadiq", password: "dorimefa@127720@0783", command: WIN_COMMAND},
-		// Add more servers here
+	flag.Parse()
+
+	servers, err := loadServers(*yamlFile)
+	if err != nil {
+		log.Fatalf("Error loading servers: %v", err)
 	}
 
 	for _, server := range servers {
-		fmt.Printf("Connecting to %s...\n", server.host)
+		if *hostFilter != "" && server.Host != *hostFilter {
+			continue
+		}
+
+		fmt.Printf("Connecting to %s...\n", server.Host)
 		result := executeSSHCommand(server)
-		fmt.Printf("Output from %s:\n%s\n", server.host, result)
+		fmt.Printf("Output from %s:\n%s\n", server.Host, result)
 		fmt.Println(strings.Repeat("-", 50))
 	}
 }
