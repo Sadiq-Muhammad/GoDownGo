@@ -1,44 +1,44 @@
 $BinaryName = "godo"
-$InstallDir = "C:\Program Files\godo"
+$InstallDir = "$env:USERPROFILE\godo"
 $DownloadUrl = ""
 
-# Get the OS and architecture
-$os = [System.Runtime.InteropServices.RuntimeInformation]::OSDescription
-$arch = [System.Runtime.InteropServices.RuntimeInformation]::ProcessArchitecture
+# Get Windows architecture using PowerShell-friendly methods
+$arch = $env:PROCESSOR_ARCHITECTURE
 
-# Determine the correct binary based on OS and architecture
-if ($os -like "*Windows*") {
-    if ($arch -eq "X64") {
-        $DownloadUrl = "https://github.com/Sadiq-Muhammad/GoDo/raw/master/builds/godo-windows-amd64.exe"  # Replace with actual URL for Windows AMD64
-    } elseif ($arch -eq "X86") {
-        $DownloadUrl = "https://github.com/Sadiq-Muhammad/GoDo/raw/master/builds/godo-windows-386.exe"  # Replace with actual URL for Windows 32-bit (386)
-    }
+# Determine the correct binary based on architecture
+if ($arch -eq "AMD64") {
+    $DownloadUrl = "https://github.com/Sadiq-Muhammad/GoDo/raw/master/builds/godo-windows-amd64.exe"
+} elseif ($arch -eq "x86") {
+    $DownloadUrl = "https://github.com/Sadiq-Muhammad/GoDo/raw/master/builds/godo-windows-386.exe"
+} elseif ($arch -eq "ARM") {
+    $DownloadUrl = "https://github.com/Sadiq-Muhammad/GoDo/raw/master/builds/godo-windows-arm.exe"
+} elseif ($arch -eq "ARM64") {
+    $DownloadUrl = "https://github.com/Sadiq-Muhammad/GoDo/raw/master/builds/godo-windows-arm64.exe"
+} else {
+    Write-Host "❌ Unsupported architecture: $arch"
+    exit 1
 }
 
-# Ensure directory exists
+# Ensure the install directory exists
 if (!(Test-Path $InstallDir)) {
     New-Item -ItemType Directory -Path $InstallDir | Out-Null
 }
 
-# Download the binary if URL is set
-if ($DownloadUrl -ne "") {
-    Write-Host "Downloading $BinaryName for $os $arch..."
-    
-    # Fixing the ternary operator with an if condition
-    if ($os -eq 'Windows') {
-        $fileExtension = ".exe"
-    } else {
-        $fileExtension = ""
-    }
+# Download the binary
+Write-Host "🚀 Downloading $BinaryName for Windows $arch..."
+Invoke-WebRequest -Uri $DownloadUrl -OutFile "$InstallDir\$BinaryName.exe"
 
-    # Download the file
-    Invoke-WebRequest -Uri $DownloadUrl -OutFile "$InstallDir\$BinaryName$fileExtension"
-
-    # Add directory to PATH
-    $env:Path += ";$InstallDir"
-    [System.Environment]::SetEnvironmentVariable("Path", $env:Path, [System.EnvironmentVariableTarget]::Machine)
-
-    Write-Host "✅ Installation complete! You can now run '$BinaryName' from anywhere."
-} else {
-    Write-Host "❌ No compatible binary found for $os $arch."
+# Verify if download was successful
+if (!(Test-Path "$InstallDir\$BinaryName.exe")) {
+    Write-Host "❌ Download failed. Please check your internet connection."
+    exit 1
 }
+
+# Add install directory to user PATH permanently
+$existingPath = [System.Environment]::GetEnvironmentVariable("Path", "User")
+if ($existingPath -notlike "*$InstallDir*") {
+    [System.Environment]::SetEnvironmentVariable("Path", "$existingPath;$InstallDir", "User")
+    Write-Host "🔗 Added $InstallDir to PATH. You may need to restart your terminal."
+}
+
+Write-Host "✅ Installation complete! You can now run '$BinaryName' from anywhere."
