@@ -18,7 +18,7 @@ A command-line tool written in Go that reads server configurations from a YAML f
 #### **Linux & macOS**
 Run the installation script:
 ```sh
-curl -sSL https://raw.githubusercontent.com/Sadiq-Muhammad/GoDo/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/Sadiq-Muhammad/GoDo/master/install.sh | bash
 ```
 This script will:
 - Build the `godo` binary for your system.
@@ -28,7 +28,7 @@ This script will:
 #### **Windows**
 Run the PowerShell installation script:
 ```powershell
-iwr -useb https://raw.githubusercontent.com/Sadiq-Muhammad/GoDo/install.ps1 | iex
+iwr -useb https://raw.githubusercontent.com/Sadiq-Muhammad/GoDo/master/install.ps1 | iex
 ```
 This script will:
 - Build the `godo.exe` binary.
