@@ -67,16 +67,27 @@ func executeSSHCommand(server Server) string {
 }
 
 func main() {
+	// Define flags
 	yamlFile := flag.String("file", "servers.yaml", "Path to the YAML file")
 	hostFilter := flag.String("host", "", "Execute command only on this host")
+	helpFlag := flag.Bool("help", false, "Display usage information")
 
+	// Parse the flags
 	flag.Parse()
 
+	// Display help message if -help flag is set
+	if *helpFlag {
+		flag.Usage()
+		return
+	}
+
+	// Load the servers from the YAML file
 	servers, err := loadServers(*yamlFile)
 	if err != nil {
 		log.Fatalf("Error loading servers: %v", err)
 	}
 
+	// Execute commands on the servers
 	for _, server := range servers {
 		if *hostFilter != "" && server.Host != *hostFilter {
 			continue
