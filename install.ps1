@@ -9,9 +9,9 @@ $arch = [System.Runtime.InteropServices.RuntimeInformation]::ProcessArchitecture
 # Determine the correct binary based on OS and architecture
 if ($os -like "*Windows*") {
     if ($arch -eq "X64") {
-        $DownloadUrl = "https://github.com/Sadiq-Muhammad/GoDo/builds/godo-windows-amd64.exe"  # Replace with actual URL for Windows AMD64
+        $DownloadUrl = "https://github.com/Sadiq-Muhammad/GoDo/blob/master/builds/godo-windows-amd64.exe"  # Replace with actual URL for Windows AMD64
     } elseif ($arch -eq "X86") {
-        $DownloadUrl = "https://github.com/Sadiq-Muhammad/GoDo/builds/godo-windows-386.exe"  # Replace with actual URL for Windows 32-bit (386)
+        $DownloadUrl = "https://github.com/Sadiq-Muhammad/GoDo/blob/master/builds/godo-windows-386.exe"  # Replace with actual URL for Windows 32-bit (386)
     }
 }
 
