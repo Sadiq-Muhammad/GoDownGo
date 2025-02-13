@@ -25,18 +25,18 @@ A command-line tool written in Go that reads server configurations from a YAML f
    ```
 3. Build the binary:
    ```sh
-   go build -o ssh-exec
+   go build -o godo
    ```
 
 ## Usage
 ### Run the tool with a YAML configuration file:
 ```sh
-./ssh-exec -file servers.yaml
+./godo -file servers.yaml
 ```
 
 ### Run for a specific host:
 ```sh
-./ssh-exec -file servers.yaml -host 192.168.1.100
+./godo -file servers.yaml -host 192.168.1.100
 ```
 
 ## YAML Configuration

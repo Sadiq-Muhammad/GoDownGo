@@ -1,4 +1,4 @@
-module GoDownGo
+module github.com/Sadiq-Muhammad/GoDo
 
 go 1.23.4
 
