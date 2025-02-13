@@ -14,29 +14,36 @@ A command-line tool written in Go that reads server configurations from a YAML f
 - A YAML file containing server details
 
 ## Installation
-1. Clone this repository:
-   ```sh
-   git clone https://github.com/Sadiq-Muhammad/GoDo.git
-   cd ssh-command-executor
-   ```
-2. Install dependencies:
-   ```sh
-   go mod tidy
-   ```
-3. Build the binary:
-   ```sh
-   go build -o godo
-   ```
+### **1. Installing via Script**
+#### **Linux & macOS**
+Run the installation script:
+```sh
+curl -sSL https://raw.githubusercontent.com/Sadiq-Muhammad/GoDo/main/install.sh | bash
+```
+This script will:
+- Build the `godo` binary for your system.
+- Move it to `/usr/local/bin/` for global access.
+- Set the necessary permissions.
+
+#### **Windows**
+Run the PowerShell installation script:
+```powershell
+iwr -useb https://raw.githubusercontent.com/Sadiq-Muhammad/GoDo/main/install.ps1 | iex
+```
+This script will:
+- Build the `godo.exe` binary.
+- Move it to `C:\Program Files\GoDo\`.
+- Add the directory to your `PATH` variable for global access.
 
 ## Usage
 ### Run the tool with a YAML configuration file:
 ```sh
-./godo -file servers.yaml
+godo -file servers.yaml
 ```
 
 ### Run for a specific host:
 ```sh
-./godo -file servers.yaml -host 192.168.1.100
+godo -file servers.yaml -host 192.168.1.100
 ```
 
 ## YAML Configuration
@@ -65,3 +72,4 @@ Pull requests and improvements are welcome! Feel free to open an issue for any f
 
 ## Author
 Sadiq Muhammad
+
