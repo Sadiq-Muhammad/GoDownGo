@@ -1,45 +1,72 @@
 #!/bin/bash
 
 BinaryName="godo"
-InstallDir="/usr/local/bin"
+DefaultInstallDir="/usr/local/bin"
+MingwInstallDir="$HOME/bin"  # Windows Git Bash installs in home directory
 DownloadUrl=""
 
-# Get OS and architecture
+# Detect OS and architecture
 os=$(uname -s)
 arch=$(uname -m)
 
-# Determine the correct binary based on OS and architecture
-if [[ "$os" == "Linux" ]]; then
-    if [[ "$arch" == "x86_64" ]]; then
-        DownloadUrl="https://github.com/Sadiq-Muhammad/GoDo/blob/master/builds/godo-linux-amd64"  # Replace with actual URL for Linux AMD64
-    elif [[ "$arch" == "armv7l" ]]; then
-        DownloadUrl="https://github.com/Sadiq-Muhammad/GoDo/blob/master/builds/godo-linux-arm"  # Replace with actual URL for Linux ARM
-    elif [[ "$arch" == "aarch64" ]]; then
-        DownloadUrl="https://github.com/Sadiq-Muhammad/GoDo/blob/master/builds/godo-linux-arm64"  # Replace with actual URL for Linux ARM64
-    fi
-elif [[ "$os" == "Darwin" ]]; then  # macOS
-    if [[ "$arch" == "x86_64" ]]; then
-        DownloadUrl="https://github.com/Sadiq-Muhammad/GoDo/blob/master/builds/godo-darwin-amd64"  # Replace with actual URL for macOS AMD64
-    elif [[ "$arch" == "arm64" ]]; then
-        DownloadUrl="https://github.com/Sadiq-Muhammad/GoDo/blob/master/builds/godo-darwin-arm64"  # Replace with actual URL for macOS ARM64
-    fi
-elif [[ "$os" == "MINGW"* || "$os" == "CYGWIN"* ]]; then  # Windows (via Git Bash or Cygwin)
-    if [[ "$arch" == "x86_64" ]]; then
-        DownloadUrl="https://github.com/Sadiq-Muhammad/GoDo/blob/master/builds/godo-windows-amd64.exe"  # Replace with actual URL for Windows AMD64
-    elif [[ "$arch" == "i686" ]]; then
-        DownloadUrl="https://github.com/Sadiq-Muhammad/GoDo/blob/master/builds/godo-windows-386.exe"  # Replace with actual URL for Windows 32-bit
-    fi
-fi
+# Normalize OS names
+case "$os" in
+    Linux) os="linux" ;;
+    Darwin) os="darwin" ;;
+    MINGW*|CYGWIN*) os="windows" ;;
+    *) echo "❌ Unsupported OS: $os"; exit 1 ;;
+esac
 
-# Check if the URL is set
-if [ -n "$DownloadUrl" ]; then
-    echo "Downloading $BinaryName for $os $arch..."
-    curl -sSL "$DownloadUrl" -o "$InstallDir/$BinaryName"
+# Normalize architecture names
+case "$arch" in
+    x86_64) arch="amd64" ;;
+    i686|i386) arch="386" ;;
+    armv7l) arch="arm" ;;
+    aarch64) arch="arm64" ;;
+    mips) arch="mips" ;;
+    mips64) arch="mips64" ;;
+    mips64le) arch="mips64le" ;;
+    mipsle) arch="mipsle" ;;
+    ppc64) arch="ppc64" ;;
+    ppc64le) arch="ppc64le" ;;
+    *) echo "❌ Unsupported architecture: $arch"; exit 1 ;;
+esac
 
-    # Make the binary executable (Linux/macOS)
-    chmod +x "$InstallDir/$BinaryName"
+# Determine the correct binary URL
+DownloadUrl="https://github.com/Sadiq-Muhammad/GoDo/raw/master/builds/godo-${os}-${arch}"
+[ "$os" = "windows" ] && DownloadUrl+=".exe"  # Append .exe for Windows
 
-    echo "✅ Installation complete! You can now run '$BinaryName' from anywhere."
+# Set installation directory
+if [ "$os" = "windows" ]; then
+    InstallDir="$MingwInstallDir"
 else
-    echo "❌ No compatible binary found for $os $arch."
+    InstallDir="$DefaultInstallDir"
 fi
+
+# Ensure the install directory exists
+mkdir -p "$InstallDir"
+
+# Download the binary
+echo "🚀 Downloading $BinaryName for $os-$arch..."
+if command -v curl >/dev/null 2>&1; then
+    curl -sSL "$DownloadUrl" -o "$InstallDir/$BinaryName"
+elif command -v wget >/dev/null 2>&1; then
+    wget -q "$DownloadUrl" -O "$InstallDir/$BinaryName"
+else
+    echo "❌ Error: curl or wget is required to download files."
+    exit 1
+fi
+
+# Ensure download was successful
+if [ ! -f "$InstallDir/$BinaryName" ]; then
+    echo "❌ Download failed. Please check your internet connection."
+    exit 1
+fi
+
+# Make the binary executable (not needed on Windows)
+if [ "$os" != "windows" ]; then
+    chmod +x "$InstallDir/$BinaryName"
+fi
+
+# Display completion message
+echo "✅ Installation complete! You can now run '$BinaryName' from anywhere."
