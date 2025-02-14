@@ -61,17 +61,33 @@ godo -file servers.yaml > godo.log
 ## YAML Configuration
 Create a `servers.yaml` file in the following format:
 ```yaml
+# config.yaml - SSH Batch Executor Configuration
 servers:
-  - host: "192.168.1.100"
-    username: "user1"
-    password: "password1"
-    command:
+  # First server configuration
+  - host: "web01.example.com"   # Server hostname or IP (required)
+    username: "admin"           # SSH username (required)
+    password: "secret123"       # SSH password (optional, not recommended)
+    # key_file: "/path/to/key"  # SSH private key path (alternative to password)
+    commands:                   # List of commands to execute (required)
       - "uptime"
       - "df -h"
-  - host: "192.168.1.101"
-    username: "user2"
-    key: "~/.ssh/id_rsa"
-    command: "ls -la"
+      - "docker ps"
+
+  # Production database server using SSH key
+  - host: "db-prod.example.com"
+    username: "dba"
+    key_file: "~/.ssh/db-prod-key.pem"
+    commands:
+      - "mysql -e 'SHOW PROCESSLIST;'"
+      - "du -sh /var/lib/mysql"
+      - "pgrep mysqld"
+
+  # Server that will prompt for password
+  - host: "backup.example.com"
+    username: "backup-user"
+    commands:  # No password/key specified = will prompt at runtime
+      - "ls -lh /backups"
+      - "free -m"
 ```
 
 ### Using Environment Variables
