@@ -3,10 +3,13 @@
 A command-line tool written in Go that reads server configurations from a YAML file and executes specified SSH commands on them.
 
 ## Features
-- Load server details (host, username, password, and command) from an external YAML file.
-- Securely connect to remote servers via SSH.
-- Execute commands on multiple servers.
+- Securely connect to remote servers via SSH using passwords or SSH keys.
+- Execute multiple commands per server.
 - Filter execution to a specific host using a command-line argument.
+- Expand environment variables within the YAML file.
+- Execute commands in parallel for faster processing.
+- Support command timeouts to prevent hanging processes.
+- Log output to a file for auditing and debugging.
 
 ## Requirements
 - Go 1.16 or later
@@ -14,26 +17,30 @@ A command-line tool written in Go that reads server configurations from a YAML f
 - A YAML file containing server details
 
 ## Installation
-### **1. Installing via Script**
-#### **Linux & macOS**
+### **Linux & macOS**
 Run the installation script:
 ```sh
 curl -sSL https://raw.githubusercontent.com/Sadiq-Muhammad/GoDo/master/install.sh | sudo bash
 ```
-This script will:
-- Build the `godo` binary for your system.
-- Move it to `/usr/local/bin/` for global access.
-- Set the necessary permissions.
 
-#### **Windows**
+### **Windows**
 Run the PowerShell installation script:
 ```powershell
 iwr -useb https://raw.githubusercontent.com/Sadiq-Muhammad/GoDo/master/install.ps1 | iex
 ```
-This script will:
-- Build the `godo.exe` binary.
-- Move it to `C:\Program Files\GoDo\`.
-- Add the directory to your `PATH` variable for global access.
+
+## Updates
+### **Linux & macOS**
+Run the installation script:
+```sh
+curl -sSL https://raw.githubusercontent.com/Sadiq-Muhammad/GoDo/master/update.sh | sudo bash
+```
+
+### **Windows**
+Run the PowerShell installation script:
+```powershell
+iwr -useb https://raw.githubusercontent.com/Sadiq-Muhammad/GoDo/master/update.ps1 | iex
+```
 
 ## Usage
 ### Run the tool with a YAML configuration file:
@@ -46,6 +53,11 @@ godo -file servers.yaml
 godo -file servers.yaml -host 192.168.1.100
 ```
 
+### Enable logging:
+```sh
+godo -file servers.yaml > godo.log
+```
+
 ## YAML Configuration
 Create a `servers.yaml` file in the following format:
 ```yaml
@@ -53,16 +65,29 @@ servers:
   - host: "192.168.1.100"
     username: "user1"
     password: "password1"
-    command: "uptime"
+    command:
+      - "uptime"
+      - "df -h"
   - host: "192.168.1.101"
     username: "user2"
-    password: "password2"
-    command: "df -h"
+    key: "~/.ssh/id_rsa"
+    command: "ls -la"
+```
+
+### Using Environment Variables
+You can use environment variables for credentials:
+```yaml
+servers:
+  - host: "${SERVER_HOST}"
+    username: "${SSH_USER}"
+    password: "${SSH_PASS}"
+    command: "free -m"
 ```
 
 ## Security Considerations
-- Avoid storing plain-text passwords in YAML files; consider using SSH keys.
+- Avoid storing plain-text passwords in YAML files; prefer SSH keys.
 - Use a vault or environment variables for sensitive credentials.
+- Log files should be stored securely to prevent leakage of command outputs.
 
 ## License
 This project is licensed under the MIT License.
@@ -72,4 +97,3 @@ Pull requests and improvements are welcome! Feel free to open an issue for any f
 
 ## Author
 Sadiq Muhammad
-
