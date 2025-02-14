@@ -41,4 +41,4 @@ if ($existingPath -notlike "*$InstallDir*") {
     Write-Host "🔗 Added $InstallDir to PATH. You may need to restart your terminal."
 }
 
-Write-Host "✅ Installation complete! You can now run '$BinaryName' from anywhere."
+Write-Host "✅ Installation complete! You can now run godo from anywhere."
