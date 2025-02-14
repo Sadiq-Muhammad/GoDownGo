@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 
 BinaryName="godo"
 DefaultInstallDir="/usr/local/bin"
