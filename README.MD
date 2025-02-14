@@ -18,7 +18,7 @@ A command-line tool written in Go that reads server configurations from a YAML f
 #### **Linux & macOS**
 Run the installation script:
 ```sh
-curl -sSL https://raw.githubusercontent.com/Sadiq-Muhammad/GoDo/master/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/Sadiq-Muhammad/GoDo/master/install.sh | sudo bash
 ```
 This script will:
 - Build the `godo` binary for your system.
