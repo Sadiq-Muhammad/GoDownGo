@@ -44,7 +44,7 @@ else
 fi
 
 # Ensure the install directory exists
-mkdir -p "$InstallDir"
+sudo mkdir -p "$InstallDir"
 
 # Download the binary
 echo "🚀 Downloading $BinaryName for $os-$arch..."
@@ -65,7 +65,7 @@ fi
 
 # Make the binary executable (not needed on Windows)
 if [ "$os" != "windows" ]; then
-    chmod +x "$InstallDir/$BinaryName"
+    sudo chmod +x "$InstallDir/$BinaryName"
 fi
 
 # Display completion message
