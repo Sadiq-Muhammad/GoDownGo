@@ -1,5 +1,4 @@
 #!/bin/bash
-set -x
 
 BinaryName="godo"
 DefaultInstallDir="/usr/local/bin"
@@ -45,7 +44,7 @@ else
 fi
 
 # Ensure the install directory exists
-sudo mkdir -p "$InstallDir"
+mkdir -p "$InstallDir"
 
 # Download the binary
 echo "🚀 Downloading $BinaryName for $os-$arch..."
@@ -66,7 +65,7 @@ fi
 
 # Make the binary executable (not needed on Windows)
 if [ "$os" != "windows" ]; then
-    sudo chmod +x "$InstallDir/$BinaryName"
+    chmod +x "$InstallDir/$BinaryName"
 fi
 
 # Display completion message
