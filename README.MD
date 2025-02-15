@@ -55,6 +55,10 @@ godo -file servers.yaml -host 192.168.1.100
 
 ### Enable logging:
 ```sh
+godo -file servers.yaml -log godo.log
+```
+Or if you don't want the output to be displayed on the terminal use:
+```sh
 godo -file servers.yaml > godo.log
 ```
 
