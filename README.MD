@@ -42,6 +42,19 @@ Run the PowerShell installation script:
 iwr -useb https://raw.githubusercontent.com/Sadiq-Muhammad/gxsh/master/scripts/update.ps1 | iex
 ```
 
+## Uninstall
+### **Linux & macOS**
+Run the installation script:
+```sh
+curl -sSL https://raw.githubusercontent.com/Sadiq-Muhammad/gxsh/master/scripts/uninstall.sh | sudo bash
+```
+
+### **Windows**
+Run the PowerShell installation script:
+```powershell
+iwr -useb https://raw.githubusercontent.com/Sadiq-Muhammad/gxsh/master/scripts/uninstall.ps1 | iex
+```
+
 ## Usage
 ### Run the tool with a YAML configuration file:
 ```sh
