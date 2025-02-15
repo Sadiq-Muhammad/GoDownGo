@@ -31,26 +31,26 @@ iwr -useb https://raw.githubusercontent.com/Sadiq-Muhammad/gxsh/master/scripts/i
 
 ## Updates
 ### **Linux & macOS**
-Run the installation script:
+Run the update script:
 ```sh
 curl -sSL https://raw.githubusercontent.com/Sadiq-Muhammad/gxsh/master/scripts/update.sh | sudo bash
 ```
 
 ### **Windows**
-Run the PowerShell installation script:
+Run the PowerShell update script:
 ```powershell
 iwr -useb https://raw.githubusercontent.com/Sadiq-Muhammad/gxsh/master/scripts/update.ps1 | iex
 ```
 
 ## Uninstall
 ### **Linux & macOS**
-Run the installation script:
+Run the uninstall script:
 ```sh
 curl -sSL https://raw.githubusercontent.com/Sadiq-Muhammad/gxsh/master/scripts/uninstall.sh | sudo bash
 ```
 
 ### **Windows**
-Run the PowerShell installation script:
+Run the PowerShell uninstall script:
 ```powershell
 iwr -useb https://raw.githubusercontent.com/Sadiq-Muhammad/gxsh/master/scripts/uninstall.ps1 | iex
 ```
