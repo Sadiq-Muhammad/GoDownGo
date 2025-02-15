@@ -20,26 +20,26 @@ A command-line tool written in Go that reads server configurations from a YAML f
 ### **Linux & macOS**
 Run the installation script:
 ```sh
-curl -sSL https://raw.githubusercontent.com/Sadiq-Muhammad/GoDo/master/install.sh | sudo bash
+curl -sSL https://raw.githubusercontent.com/Sadiq-Muhammad/GoDo/master/scripts/install.sh | sudo bash
 ```
 
 ### **Windows**
 Run the PowerShell installation script:
 ```powershell
-iwr -useb https://raw.githubusercontent.com/Sadiq-Muhammad/GoDo/master/install.ps1 | iex
+iwr -useb https://raw.githubusercontent.com/Sadiq-Muhammad/GoDo/master/scripts/install.ps1 | iex
 ```
 
 ## Updates
 ### **Linux & macOS**
 Run the installation script:
 ```sh
-curl -sSL https://raw.githubusercontent.com/Sadiq-Muhammad/GoDo/master/update.sh | sudo bash
+curl -sSL https://raw.githubusercontent.com/Sadiq-Muhammad/GoDo/master/scripts/update.sh | sudo bash
 ```
 
 ### **Windows**
 Run the PowerShell installation script:
 ```powershell
-iwr -useb https://raw.githubusercontent.com/Sadiq-Muhammad/GoDo/master/update.ps1 | iex
+iwr -useb https://raw.githubusercontent.com/Sadiq-Muhammad/GoDo/master/scripts/update.ps1 | iex
 ```
 
 ## Usage
