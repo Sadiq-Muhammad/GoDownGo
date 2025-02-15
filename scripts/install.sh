@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BinaryName="godo"
+BinaryName="gxsh"
 DefaultInstallDir="/usr/local/bin"
 MingwInstallDir="$HOME/bin"  # Windows Git Bash installs in home directory
 DownloadUrl=""
@@ -33,7 +33,7 @@ case "$arch" in
 esac
 
 # Determine the correct binary URL
-DownloadUrl="https://github.com/Sadiq-Muhammad/GoDo/raw/master/builds/godo-${os}-${arch}"
+DownloadUrl="https://github.com/Sadiq-Muhammad/gxsh/raw/master/builds/gxsh-${os}-${arch}"
 [ "$os" = "windows" ] && DownloadUrl+=".exe"  # Append .exe for Windows
 
 # Set installation directory

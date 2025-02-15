@@ -166,10 +166,10 @@ func main() {
 	)
 
 	flag.Usage = func() {
-		fmt.Fprintf(flag.CommandLine.Output(), "GoDo\n\nUsage:\n")
+		fmt.Fprintf(flag.CommandLine.Output(), "gxsh\n\nUsage:\n")
 		flag.PrintDefaults()
 		fmt.Fprintln(flag.CommandLine.Output(), "\nExample:")
-		fmt.Fprintf(flag.CommandLine.Output(), "godo -file config.yaml -log results.log -host web01\n")
+		fmt.Fprintf(flag.CommandLine.Output(), "gxsh -file config.yaml -log results.log -host 127.0.0.1\n")
 	}
 
 	flag.Parse()

@@ -37,7 +37,7 @@ foreach ($target in $targets) {
     $os = $target.OS
     $arch = $target.ARCH
     $ext = $target.EXT
-    $outputFile = "$buildDir/godo-$os-$arch$ext"
+    $outputFile = "$buildDir/gxsh-$os-$arch$ext"
 
     # Set environment variables and build
     Write-Host "🚀 Building for $os-$arch..."

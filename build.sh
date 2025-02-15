@@ -35,7 +35,7 @@ mkdir -p "$BUILD_DIR"
 # Loop through each target and build
 for target in "${targets[@]}"; do
     read -r os arch ext <<< "$target"
-    output_file="$BUILD_DIR/godo-$os-$arch$ext"
+    output_file="$BUILD_DIR/gxsh-$os-$arch$ext"
 
     echo "🚀 Building for $os-$arch..."
     

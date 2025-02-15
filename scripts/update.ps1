@@ -1,5 +1,5 @@
-$BinaryName = "godo"
-$InstallDir = "$env:USERPROFILE\godo"
+$BinaryName = "gxsh"
+$InstallDir = "$env:USERPROFILE\gxsh"
 $DownloadUrl = ""
 
 # Get Windows architecture
@@ -7,13 +7,13 @@ $arch = $env:PROCESSOR_ARCHITECTURE
 
 # Determine the correct binary based on architecture
 if ($arch -eq "AMD64") {
-    $DownloadUrl = "https://github.com/Sadiq-Muhammad/GoDo/raw/master/builds/godo-windows-amd64.exe"
+    $DownloadUrl = "https://github.com/Sadiq-Muhammad/gxsh/raw/master/builds/gxsh-windows-amd64.exe"
 } elseif ($arch -eq "x86") {
-    $DownloadUrl = "https://github.com/Sadiq-Muhammad/GoDo/raw/master/builds/godo-windows-386.exe"
+    $DownloadUrl = "https://github.com/Sadiq-Muhammad/gxsh/raw/master/builds/gxsh-windows-386.exe"
 } elseif ($arch -eq "ARM") {
-    $DownloadUrl = "https://github.com/Sadiq-Muhammad/GoDo/raw/master/builds/godo-windows-arm.exe"
+    $DownloadUrl = "https://github.com/Sadiq-Muhammad/gxsh/raw/master/builds/gxsh-windows-arm.exe"
 } elseif ($arch -eq "ARM64") {
-    $DownloadUrl = "https://github.com/Sadiq-Muhammad/GoDo/raw/master/builds/godo-windows-arm64.exe"
+    $DownloadUrl = "https://github.com/Sadiq-Muhammad/gxsh/raw/master/builds/gxsh-windows-arm64.exe"
 } else {
     Write-Host "❌ Unsupported architecture: $arch"
     exit 1
@@ -43,4 +43,4 @@ if (!(Test-Path "$InstallDir\$BinaryName.exe")) {
     Remove-Item "$InstallDir\$BinaryName.bak" -Force -ErrorAction SilentlyContinue
 }
 
-Write-Host "✅ Update complete! You are now running the latest version of godo."
+Write-Host "✅ Update complete! You are now running the latest version of gxsh."

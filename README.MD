@@ -1,4 +1,4 @@
-# GoDo
+# GXSH : Go Execute SSH
 
 A command-line tool written in Go that reads server configurations from a YAML file and executes specified SSH commands on them.
 
@@ -20,46 +20,46 @@ A command-line tool written in Go that reads server configurations from a YAML f
 ### **Linux & macOS**
 Run the installation script:
 ```sh
-curl -sSL https://raw.githubusercontent.com/Sadiq-Muhammad/GoDo/master/scripts/install.sh | sudo bash
+curl -sSL https://raw.githubusercontent.com/Sadiq-Muhammad/gxsh/master/scripts/install.sh | sudo bash
 ```
 
 ### **Windows**
 Run the PowerShell installation script:
 ```powershell
-iwr -useb https://raw.githubusercontent.com/Sadiq-Muhammad/GoDo/master/scripts/install.ps1 | iex
+iwr -useb https://raw.githubusercontent.com/Sadiq-Muhammad/gxsh/master/scripts/install.ps1 | iex
 ```
 
 ## Updates
 ### **Linux & macOS**
 Run the installation script:
 ```sh
-curl -sSL https://raw.githubusercontent.com/Sadiq-Muhammad/GoDo/master/scripts/update.sh | sudo bash
+curl -sSL https://raw.githubusercontent.com/Sadiq-Muhammad/gxsh/master/scripts/update.sh | sudo bash
 ```
 
 ### **Windows**
 Run the PowerShell installation script:
 ```powershell
-iwr -useb https://raw.githubusercontent.com/Sadiq-Muhammad/GoDo/master/scripts/update.ps1 | iex
+iwr -useb https://raw.githubusercontent.com/Sadiq-Muhammad/gxsh/master/scripts/update.ps1 | iex
 ```
 
 ## Usage
 ### Run the tool with a YAML configuration file:
 ```sh
-godo -file servers.yaml
+gxsh -file servers.yaml
 ```
 
 ### Run for a specific host:
 ```sh
-godo -file servers.yaml -host 192.168.1.100
+gxsh -file servers.yaml -host 192.168.1.100
 ```
 
 ### Enable logging:
 ```sh
-godo -file servers.yaml -log godo.log
+gxsh -file servers.yaml -log gxsh.log
 ```
 Or if you don't want the output to be displayed on the terminal use:
 ```sh
-godo -file servers.yaml > godo.log
+gxsh -file servers.yaml > gxsh.log
 ```
 
 ## YAML Configuration
