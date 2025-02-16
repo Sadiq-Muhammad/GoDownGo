@@ -96,7 +96,7 @@ func getSSHConfig(server Server, fallback bool) (*ssh.ClientConfig, error) {
 		kex = fallbackKex
 	}
 
-	return &ssh.ClientConfig{
+	config := &ssh.ClientConfig{
 		User:            server.Username,
 		Auth:            auth,
 		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
@@ -105,7 +105,23 @@ func getSSHConfig(server Server, fallback bool) (*ssh.ClientConfig, error) {
 			Ciphers:      ciphers,
 			KeyExchanges: kex,
 		},
-	}, nil
+	}
+
+	if fallback {
+		// Enable SSH-DSS (DSA) for legacy host key support
+		config.HostKeyAlgorithms = []string{
+			ssh.KeyAlgoED25519,
+			ssh.KeyAlgoRSASHA256,
+			ssh.KeyAlgoECDSA256,
+			ssh.KeyAlgoECDSA384,
+			ssh.KeyAlgoECDSA521,
+			ssh.KeyAlgoSKED25519,
+			ssh.KeyAlgoSKECDSA256,
+			ssh.KeyAlgoDSA, // Add DSA support
+		}
+	}
+
+	return config, nil
 }
 
 // Connect with modern algorithms first, then fallback to legacy

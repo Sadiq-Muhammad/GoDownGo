@@ -27,6 +27,13 @@ Uses clear, color-coded messages to display connection statuses, command outputs
 - User-Friendly CLI:
 Provides intuitive command-line flags for specifying configuration files, enabling logging, and displaying help information.
 
+## You can SSH to...
+- Windows
+- Linux
+- MacOS
+- RouterOS (Mikrotik devices)
+- AirOS (Ubiquiti)
+
 ## Requirements
 - OpenSSH installed on the client machine
 
