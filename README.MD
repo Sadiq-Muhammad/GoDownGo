@@ -28,9 +28,7 @@ Uses clear, color-coded messages to display connection statuses, command outputs
 Provides intuitive command-line flags for specifying configuration files, enabling logging, and displaying help information.
 
 ## Requirements
-- Go 1.16 or later
 - OpenSSH installed on the client machine
-- A YAML file containing server details
 
 ## Installation
 ### **Linux & macOS**
