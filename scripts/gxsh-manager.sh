@@ -39,7 +39,7 @@ show_header() {
     echo "   ██████  ██   ██ ███████ ██   ██ "
     echo -e "${NC}"
     echo -e "${YELLOW}╔════════════════════════════════════════╗"
-    echo -e "║            Version $Version              ║"
+    echo -e "║              GXSH v$Version              ║"
     echo -e "╚════════════════════════════════════════╝${NC}"
     echo
 }
@@ -103,8 +103,7 @@ install() {
     download_binary
     
     if [ "$os" != "windows" ]; then
-        chmod +x "$InstallDir/$BinaryName" &
-        spinner "Setting permissions"
+        chmod +x "$InstallDir/$BinaryName"
     fi
 
     echo -e "${GREEN}✅ Installation complete!${NC}"
@@ -123,9 +122,8 @@ update() {
     fi
 
     BackupFile="$InstallDir/${BinaryName}.bak"
-    mv "$InstallDir/$BinaryName" "$BackupFile" &
-    spinner "Creating backup"
-
+    mv "$InstallDir/$BinaryName" "$BackupFile"
+    
     download_binary
 
     if [ ! -s "$InstallDir/$BinaryName" ]; then
@@ -134,8 +132,7 @@ update() {
         return 1
     fi
 
-    rm -f "$BackupFile" &
-    spinner "Cleaning up"
+    rm -f "$BackupFile"
 
     echo -e "${GREEN}✅ Update successful!${NC}"
 }
@@ -147,8 +144,7 @@ uninstall() {
     set_install_dir
 
     if [ -f "$InstallDir/$BinaryName" ]; then
-        rm -f "$InstallDir/$BinaryName" &
-        spinner "Removing binary"
+        rm -f "$InstallDir/$BinaryName"
         echo -e "${GREEN}✅ Uninstall complete!${NC}"
     else
         echo -e "${YELLOW}⚠ Binary not found in $InstallDir${NC}"
@@ -158,9 +154,9 @@ uninstall() {
 main_menu() {
     while true; do
         show_header
-        echo -e "${CYAN}1. Install gxsh"
-        echo -e "${GREEN}2. Update gxsh"
-        echo -e "${RED}3. Uninstall gxsh"
+        echo -e "${CYAN}1. Install GXSH"
+        echo -e "${GREEN}2. Update GXSH"
+        echo -e "${RED}3. Uninstall GXSH"
         echo -e "${BLUE}4. Exit${NC}"
         echo
         read -rp "Choose an option (1-4): " choice
@@ -175,7 +171,6 @@ main_menu() {
             4) echo -e "${CYAN}👋 Goodbye!${NC}"; exit 0 ;;
             *) 
                 echo -e "${RED}❌ Invalid option${NC}"
-                # Wait for user acknowledgement with timeout
                 read -t 2 -n 1 -s -r -p "Press any key to continue..."
                 echo
                 ;;
