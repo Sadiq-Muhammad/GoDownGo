@@ -37,43 +37,17 @@ Provides intuitive command-line flags for specifying configuration files, enabli
 ## Requirements
 - OpenSSH installed on the client machine
 
-## Installation
+## Install / Update / Uninstall
 ### **Linux & macOS**
 Run the installation script:
 ```sh
-curl -sSL https://raw.githubusercontent.com/Sadiq-Muhammad/gxsh/master/scripts/install.sh | sudo bash
+curl -sSL https://raw.githubusercontent.com/Sadiq-Muhammad/gxsh/master/scripts/gxsh-manager.sh | sudo bash
 ```
 
 ### **Windows**
 Run the PowerShell installation script:
 ```powershell
-iwr -useb https://raw.githubusercontent.com/Sadiq-Muhammad/gxsh/master/scripts/install.ps1 | iex
-```
-
-## Updates
-### **Linux & macOS**
-Run the update script:
-```sh
-curl -sSL https://raw.githubusercontent.com/Sadiq-Muhammad/gxsh/master/scripts/update.sh | sudo bash
-```
-
-### **Windows**
-Run the PowerShell update script:
-```powershell
-iwr -useb https://raw.githubusercontent.com/Sadiq-Muhammad/gxsh/master/scripts/update.ps1 | iex
-```
-
-## Uninstall
-### **Linux & macOS**
-Run the uninstall script:
-```sh
-curl -sSL https://raw.githubusercontent.com/Sadiq-Muhammad/gxsh/master/scripts/uninstall.sh | sudo bash
-```
-
-### **Windows**
-Run the PowerShell uninstall script:
-```powershell
-iwr -useb https://raw.githubusercontent.com/Sadiq-Muhammad/gxsh/master/scripts/uninstall.ps1 | iex
+iwr -useb https://raw.githubusercontent.com/Sadiq-Muhammad/gxsh/master/scripts/gxsh-manager.ps1 | iex
 ```
 
 ## Usage
