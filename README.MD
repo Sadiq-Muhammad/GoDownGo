@@ -3,13 +3,29 @@
 A command-line tool written in Go that reads server configurations from a YAML file and executes specified SSH commands on them.
 
 ## Features
-- Securely connect to remote servers via SSH using passwords or SSH keys.
-- Execute multiple commands per server.
-- Filter execution to a specific host using a command-line argument.
-- Expand environment variables within the YAML file.
-- Execute commands in parallel for faster processing.
-- Support command timeouts to prevent hanging processes.
-- Log output to a file for auditing and debugging.
+- YAML Configuration:
+Define multiple servers and commands in an easy-to-edit YAML file, including options for host, port, username, password, key file, and commands.
+
+- Flexible Authentication:
+Supports both password-based and key-based SSH authentication. If no password is provided, the tool prompts for it interactively.
+
+- Legacy Device Compatibility:
+Automatically attempts connections using modern SSH algorithms first, then gracefully falls back to legacy algorithms when needed, ensuring compatibility with older devices.
+
+- Sudo Command Support:
+Detects commands that require elevated privileges (via sudo -S) and automatically pipes the password to execute these commands seamlessly.
+
+- Concurrent Execution:
+Leverages goroutines to execute commands concurrently across multiple servers, significantly speeding up operations.
+
+- Robust Logging:
+Optionally logs command outputs and errors to a specified file for easy auditing and troubleshooting.
+
+- Color-Coded Terminal Output:
+Uses clear, color-coded messages to display connection statuses, command outputs, and error notifications, enhancing readability in the terminal.
+
+- User-Friendly CLI:
+Provides intuitive command-line flags for specifying configuration files, enabling logging, and displaying help information.
 
 ## Requirements
 - Go 1.16 or later
