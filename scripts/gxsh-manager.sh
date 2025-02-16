@@ -18,13 +18,14 @@ SPINNER=('⠋' '⠙' '⠹' '⠸' '⠼' '⠴' '⠦' '⠧' '⠇' '⠏')
 
 # Animation functions
 spinner() {
-    local pid=$!
+    local pid=$1
+    local message=$2
     local delay=0.1
     local i=0
-    while kill -0 $pid 2>/dev/null; do
-        printf "\r${SPINNER[i]} $1"
+    while kill -0 "$pid" 2>/dev/null; do
+        printf "\r${SPINNER[i]} $message"
         i=$(( (i+1) % 10 ))
-        sleep $delay
+        sleep "$delay"
     done
     printf "\r\033[K"
 }
@@ -79,10 +80,15 @@ download_binary() {
     [ "$os" = "windows" ] && url+=".exe"
 
     echo -e "${BLUE}🌐 Downloading binary...${NC}"
-    (curl -sSL "$url" -o "$InstallDir/$BinaryName" || 
-     wget -q "$url" -O "$InstallDir/$BinaryName") &
-    spinner "Downloading"
-    
+    if command -v curl &>/dev/null; then
+        curl -sSL "$url" -o "$InstallDir/$BinaryName" &
+    else
+        wget -q "$url" -O "$InstallDir/$BinaryName" &
+    fi
+    local pid=$!
+    spinner "$pid" "Downloading"
+    wait "$pid"
+
     if [ ! -f "$InstallDir/$BinaryName" ]; then
         echo -e "${RED}❌ Download failed${NC}"
         exit 1
@@ -90,7 +96,6 @@ download_binary() {
 }
 
 install() {
-    show_header
     echo -e "${YELLOW}🚀 Starting installation...${NC}"
     detect_platform
     set_install_dir
@@ -111,7 +116,6 @@ install() {
 }
 
 update() {
-    show_header
     echo -e "${YELLOW}🔄 Starting update...${NC}"
     detect_platform
     set_install_dir
@@ -138,7 +142,6 @@ update() {
 }
 
 uninstall() {
-    show_header
     echo -e "${YELLOW}🗑 Starting uninstall...${NC}"
     detect_platform
     set_install_dir
@@ -152,8 +155,8 @@ uninstall() {
 }
 
 main_menu() {
+    show_header
     while true; do
-        show_header
         echo -e "${CYAN}1. Install GXSH"
         echo -e "${GREEN}2. Update GXSH"
         echo -e "${RED}3. Uninstall GXSH"
