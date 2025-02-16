@@ -5,7 +5,7 @@ BinaryName="gxsh"
 DefaultInstallDir="/usr/local/bin"
 MingwInstallDir="$HOME/bin"
 DownloadBase="https://github.com/Sadiq-Muhammad/gxsh/raw/master/builds"
-Version="0.0.2-alpha"
+Version="0.0.2"
 
 # Colors and animations
 RED='\033[0;31m'
@@ -163,17 +163,26 @@ main_menu() {
         echo -e "${RED}3. Uninstall gxsh"
         echo -e "${BLUE}4. Exit${NC}"
         echo
-        read -p "Choose an option (1-4): " choice
+        read -rp "Choose an option (1-4): " choice
+        
+        # Clear any extra input in the buffer
+        while read -t 0.1 -r -n 1 dummy; do : ; done
 
         case $choice in
             1) install ;;
             2) update ;;
             3) uninstall ;;
             4) echo -e "${CYAN}👋 Goodbye!${NC}"; exit 0 ;;
-            *) echo -e "${RED}❌ Invalid option${NC}"; sleep 1 ;;
+            *) 
+                echo -e "${RED}❌ Invalid option${NC}"
+                # Wait for user acknowledgement with timeout
+                read -t 2 -n 1 -s -r -p "Press any key to continue..."
+                echo
+                ;;
         esac
 
-        read -n 1 -s -r -p "Press any key to continue..."
+        # Clear input buffer before next iteration
+        while read -t 0.1 -r -n 1 dummy; do : ; done
     done
 }
 

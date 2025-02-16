@@ -6,7 +6,7 @@ GXSH Manager - Combined installation manager for Windows
 Provides interactive installation, update, and uninstallation of gxsh
 #>
 
-$Version = "0.0.2-alpha"
+$Version = "0.0.2-"
 $BinaryName = "gxsh"
 $InstallDir = "$env:USERPROFILE\gxsh"
 $BaseUrl = "https://github.com/Sadiq-Muhammad/gxsh/raw/master/builds"
