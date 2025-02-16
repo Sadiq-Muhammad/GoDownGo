@@ -1,4 +1,4 @@
-module github.com/Sadiq-Muhammad/GoDo
+module github.com/Sadiq-Muhammad/gxsh
 
 go 1.23.4
 

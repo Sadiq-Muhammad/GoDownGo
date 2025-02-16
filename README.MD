@@ -63,16 +63,16 @@ gxsh -file servers.yaml
 
 ### Run for a specific host:
 ```sh
-gxsh -file servers.yaml -host 192.168.1.100
+gxsh -f servers.yaml -host 192.168.1.100
 ```
 
 ### Enable logging:
 ```sh
-gxsh -file servers.yaml -log gxsh.log
+gxsh -file servers.yaml -log log.txt
 ```
 Or if you don't want the output to be displayed on the terminal use:
 ```sh
-gxsh -file servers.yaml > gxsh.log
+gxsh -file servers.yaml > log.txt
 ```
 
 ## YAML Configuration
@@ -89,11 +89,13 @@ servers:
       - "uptime"
       - "df -h"
       - "docker ps"
+      - "sudo -S apt update"    # To use sudo commands add -S to the sudo
 
   # Production database server using SSH key
   - host: "db-prod.example.com"
     username: "dba"
     key_file: "~/.ssh/db-prod-key.pem"
+    port: 2222                # Set SSH port
     commands:
       - "mysql -e 'SHOW PROCESSLIST;'"
       - "du -sh /var/lib/mysql"

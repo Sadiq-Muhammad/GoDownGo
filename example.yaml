@@ -1,0 +1,13 @@
+servers:
+  - host: "172.19.13.49"   # Server hostname or IP (required)
+    username: "admin"           # SSH username (required)
+    password: "password123"       # SSH password (optional, not recommended)
+    # key_file: "/path/to/key"  # SSH private key path (alternative to password)
+    commands:                   # List of commands to execute (required)
+      - "sudo -S apt update"
+  - host: "10.0.0.1"   # Server hostname or IP (required)
+    username: "admin"           # SSH username (required)
+    password: "password123"       # SSH password (optional, not recommended)
+    # key_file: "/path/to/key"  # SSH private key path (alternative to password)
+    commands:                   # List of commands to execute (required)
+      - "system health print"
