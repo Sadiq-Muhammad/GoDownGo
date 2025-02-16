@@ -177,7 +177,7 @@ main_menu() {
         esac
 
         # Clear input buffer before next iteration
-        while read -t 0.1 -r -n 1 dummy; do : ; done
+        #while read -t 0.1 -r -n 1 dummy; do : ; done
     done
 }
 
