@@ -160,9 +160,6 @@ main_menu() {
         echo -e "${BLUE}4. Exit${NC}"
         echo
         read -rp "Choose an option (1-4): " choice
-        
-        # Clear any extra input in the buffer
-        while read -t 0.1 -r -n 1 dummy; do : ; done
 
         case $choice in
             1) install ;;
@@ -171,15 +168,13 @@ main_menu() {
             4) echo -e "${CYAN}👋 Goodbye!${NC}"; exit 0 ;;
             *) 
                 echo -e "${RED}❌ Invalid option${NC}"
-                read -t 2 -n 1 -s -r -p "Press any key to continue..."
+                read -n 1 -s -r -p "Press any key to continue..."
                 echo
                 ;;
         esac
-
-        # Clear input buffer before next iteration
-        #while read -t 0.1 -r -n 1 dummy; do : ; done
     done
 }
+
 
 # Main execution
 trap "echo -e '\n${RED}❌ Operation cancelled${NC}'; exit 1" SIGINT
