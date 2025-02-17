@@ -53,17 +53,12 @@ iwr -useb https://raw.githubusercontent.com/Sadiq-Muhammad/gxsh/master/scripts/g
 ## Usage
 ### Run the tool with a YAML configuration file:
 ```sh
-gxsh -file servers.yaml
-```
-
-### Run for a specific host:
-```sh
-gxsh -f servers.yaml -host 192.168.1.100
+gxsh -f servers.yaml
 ```
 
 ### Enable logging:
 ```sh
-gxsh -file servers.yaml -log log.txt
+gxsh -f servers.yaml -log log.txt
 ```
 Or if you don't want the output to be displayed on the terminal use:
 ```sh
