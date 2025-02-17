@@ -27,6 +27,15 @@ if (!(Get-Command go -ErrorAction SilentlyContinue)) {
     exit 1
 }
 
+# Check if UPX is installed
+$upxInstalled = $false
+if (Get-Command upx -ErrorAction SilentlyContinue) {
+    $upxInstalled = $true
+    Write-Host "✅ UPX found! Will compress binaries."
+} else {
+    Write-Host "⚠️ UPX not found. Skipping compression."
+}
+
 # Create the build directory if it doesn't exist
 if (!(Test-Path $buildDir)) {
     New-Item -ItemType Directory -Path $buildDir | Out-Null
@@ -44,12 +53,23 @@ foreach ($target in $targets) {
     $env:GOOS = $os
     $env:GOARCH = $arch
 
-    # Compile the binary
-    go build -o $outputFile
+    # Compile the binary with stripped debug symbols
+    go build -ldflags="-s -w" -o $outputFile
 
     # Check if the build succeeded
     if ($?) {
         Write-Host "✅ Build successful: $outputFile"
+
+        # Compress with UPX if available
+        if ($upxInstalled) {
+            Write-Host "🗜 Compressing $outputFile..."
+            upx --best --lzma $outputFile | Out-Null
+            if ($?) {
+                Write-Host "✅ Compression successful: $outputFile"
+            } else {
+                Write-Host "⚠️ Compression failed for $outputFile"
+            }
+        }
     } else {
         Write-Host "❌ Build failed for $os-$arch"
     }

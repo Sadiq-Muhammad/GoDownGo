@@ -29,6 +29,15 @@ if ! command -v go &> /dev/null; then
     exit 1
 fi
 
+# Check if UPX is installed
+if command -v upx &> /dev/null; then
+    UPX_AVAILABLE=true
+    echo "✅ UPX found! Will compress binaries."
+else
+    UPX_AVAILABLE=false
+    echo "⚠️ UPX not found. Skipping compression."
+fi
+
 # Create the build directory if it doesn't exist
 mkdir -p "$BUILD_DIR"
 
@@ -39,16 +48,26 @@ for target in "${targets[@]}"; do
 
     echo "🚀 Building for $os-$arch..."
     
-    # Set environment variables and build
-    GOOS="$os" GOARCH="$arch" go build -o "$output_file"
+    # Set environment variables and build with stripped debug symbols
+    GOOS="$os" GOARCH="$arch" go build -ldflags="-s -w" -o "$output_file"
     
     # Check if the build succeeded
     if [ $? -eq 0 ]; then
         echo "✅ Build successful: $output_file"
+
+        # Compress with UPX if available
+        if [ "$UPX_AVAILABLE" = true ]; then
+            echo "🗜 Compressing $output_file..."
+            upx --best --lzma "$output_file" &> /dev/null
+            if [ $? -eq 0 ]; then
+                echo "✅ Compression successful: $output_file"
+            else
+                echo "⚠️ Compression failed for $output_file"
+            fi
+        fi
     else
         echo "❌ Build failed for $os-$arch"
     fi
-
 done
 
 echo "🎉 All builds completed! Files are stored in the '$BUILD_DIR' directory."
