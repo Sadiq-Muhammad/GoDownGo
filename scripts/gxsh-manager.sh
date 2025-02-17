@@ -4,7 +4,7 @@
 BinaryName="gxsh"
 DefaultInstallDir="/usr/local/bin"
 MingwInstallDir="$HOME/bin"
-DownloadBase="https://github.com/Sadiq-Muhammad/gxsh/raw/master/builds"
+DownloadBase="https://raw.githubusercontent.com/Sadiq-Muhammad/gxsh/refs/heads/master/builds"
 Version="0.0.2"
 
 # Colors and animations

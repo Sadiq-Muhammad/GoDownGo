@@ -12,7 +12,7 @@ Provides interactive installation, update, and uninstallation of gxsh
 $Version = "0.0.2-"
 $BinaryName = "gxsh"
 $InstallDir = "$env:USERPROFILE\gxsh"
-$BaseUrl = "https://github.com/Sadiq-Muhammad/gxsh/raw/master/builds"
+$BaseUrl = "https://raw.githubusercontent.com/Sadiq-Muhammad/gxsh/refs/heads/master/builds"
 
 # Detect architecture correctly
 $Arch = switch -Wildcard ((Get-WmiObject Win32_ComputerSystem).SystemType) {
