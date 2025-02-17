@@ -113,6 +113,8 @@ install() {
 
     echo -e "${GREEN}✅ Installation complete!${NC}"
     echo -e "Add ${CYAN}$InstallDir${NC} to your PATH if needed"
+    read -n 1 -s -r -p "Press any key to continue..." </dev/tty
+    echo
 }
 
 update() {
@@ -139,6 +141,8 @@ update() {
     rm -f "$BackupFile"
 
     echo -e "${GREEN}✅ Update successful!${NC}"
+    read -n 1 -s -r -p "Press any key to continue..." </dev/tty
+    echo
 }
 
 uninstall() {
@@ -152,6 +156,8 @@ uninstall() {
     else
         echo -e "${YELLOW}⚠ Binary not found in $InstallDir${NC}"
     fi
+    read -n 1 -s -r -p "Press any key to continue..." </dev/tty
+    echo
 }
 
 main_menu() {
@@ -162,7 +168,7 @@ main_menu() {
         echo -e "${RED}3. Uninstall GXSH"
         echo -e "${BLUE}4. Exit${NC}"
         echo
-        read -rp "Choose an option (1-4): " choice
+        read -rp "Choose an option (1-4): " choice </dev/tty
 
         case $choice in
             1) install ;;
@@ -171,7 +177,7 @@ main_menu() {
             4) echo -e "${CYAN}👋 Goodbye!${NC}"; exit 0 ;;
             *) 
                 echo -e "${RED}❌ Invalid option${NC}"
-                read -n 1 -s -r -p "Press any key to continue..."
+                read -n 1 -s -r -p "Press any key to continue..." </dev/tty
                 echo
                 ;;
         esac
