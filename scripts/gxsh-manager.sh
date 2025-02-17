@@ -40,7 +40,7 @@ show_header() {
     echo "   ██████  ██   ██ ███████ ██   ██ "
     echo -e "${NC}"
     echo -e "${YELLOW}╔════════════════════════════════════════╗"
-    echo -e "║              GXSH v$Version              ║"
+    echo -e "║              GXSH v$Version               ║"
     echo -e "╚════════════════════════════════════════╝${NC}"
     echo
 }
