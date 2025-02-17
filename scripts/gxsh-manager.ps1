@@ -40,19 +40,7 @@ if ($Host.UI.SupportsVirtualTerminal) {
 
 function Show-Header {
     Clear-Host
-    Write-Host @"
-${CYAN}
-   ██████  ██   ██ ███████ ██   ██
-  ██    ██ ╚██ ██╔╝██      ██   ██
-  ██    ██  ╚███╔╝ ███████ ███████
-  ██    ██  ██ ██║      ██ ██   ██
-   ██████  ██   ██ ███████ ██   ██
-${RESET}
-${YELLOW}╔════════════════════════════════════════╗
-║            Version $Version              ║
-╚════════════════════════════════════════╝${RESET}
-
-"@
+    Write-Host @"${CYAN}GXSH${RESET}${YELLOW} Version $Version${RESET}"@
 }
 
 function Invoke-Spinner {
